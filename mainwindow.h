@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QPushButton>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,9 +15,15 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QPushButton *cookieButton;
-    int cookie=0;
+    QLabel *cookieNumber;
+    double cookie=0;
+    double cookiePass=0.5;
+
+
+
     void cookieClicked();
+    void cookiePassif();
+
 
 
 private:

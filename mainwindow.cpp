@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <clickableimage.h>
+#include <QMouseEvent>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     auto* layout =new QGridLayout();
     setCentralWidget(widget);
     widget->setLayout(layout);
+
+
 
 
 
@@ -31,7 +35,20 @@ MainWindow::MainWindow(QWidget *parent)
    cookieBut->setPixmap(iconPix);
    cookieBut->resize(1000,1000);
 
-   connect(cookieBut,&ClickableImage::mousePressEvent,this,&MainWindow::cookieClicked);
+   //Gestion du click sur le cookie
+   connect(cookieBut,&ClickableImage::clicked,this,&MainWindow::cookieClicked);
+
+   //Affichage du nombre de cookie
+   cookieNumber = new QLabel(widget);
+   cookieNumber->setText(QString::number(cookie));
+
+
+   //Gestion des cookies passif (cookiePassif invoqué toutes les secondes)
+   QTimer *timer = new QTimer(this);
+   connect(timer, &QTimer::timeout, this,&MainWindow::cookiePassif );
+   timer->start(1000);
+
+
 
 
 
@@ -49,7 +66,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::cookieClicked(){
     cookie+=1;
+    cookieNumber->setText(QString::number(cookie));
 }
 
-
+void MainWindow::cookiePassif(){
+    cookie+=cookiePass;
+    cookieNumber->setText(QString::number(cookie));
+}
 
