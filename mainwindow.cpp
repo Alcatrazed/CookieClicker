@@ -6,6 +6,8 @@
 #include <clickableimage.h>
 #include <QMouseEvent>
 #include <QTimer>
+#include <QFont>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -33,20 +35,40 @@ MainWindow::MainWindow(QWidget *parent)
    iconPix.scaled(50,50);
    ClickableImage* cookieBut = new ClickableImage(butName,widget);
    cookieBut->setPixmap(iconPix);
-   cookieBut->resize(1000,1000);
+   cookieBut->resize(750,750);
+   cookieBut->move(25,100);
 
    //Gestion du click sur le cookie
    connect(cookieBut,&ClickableImage::clicked,this,&MainWindow::cookieClicked);
 
    //Affichage du nombre de cookie
+
    cookieNumber = new QLabel(widget);
    cookieNumber->setText(QString::number(cookie));
+   cookieNumber->move(255,50);
+  // cookieNumber->resize(100,500);
+
+
+   QFont font = cookieNumber->font();
+   font.setBold(true);
+   font.setPointSize(40);
+   cookieNumber->setFont(font);
+
+
+
 
 
    //Gestion des cookies passif (cookiePassif invoqué toutes les secondes)
    QTimer *timer = new QTimer(this);
    connect(timer, &QTimer::timeout, this,&MainWindow::cookiePassif );
    timer->start(1000);
+
+
+
+
+   //Shop
+
+
 
 
 
@@ -65,12 +87,33 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::cookieClicked(){
-    cookie+=1;
+    cookie+=100;
     cookieNumber->setText(QString::number(cookie));
 }
 
 void MainWindow::cookiePassif(){
     cookie+=cookiePass;
     cookieNumber->setText(QString::number(cookie));
+}
+
+int MainWindow::calculeCookie(){
+    //en javascript
+   /* const lookup = [
+        { value: 1, symbol: "" },
+        { value: 1e3, symbol: "k" },
+        { value: 1e6, symbol: "M" },
+        { value: 1e9, symbol: "G" },
+        { value: 1e12, symbol: "T" },
+        { value: 1e15, symbol: "P" },
+        { value: 1e18, symbol: "E" }
+      ];
+      const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+      var item = lookup.slice().reverse().find(function(item) {
+        return num >= item.value;
+      });
+      return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
+    */
+
+
 }
 
