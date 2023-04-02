@@ -34,8 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
    cookieNumber = new QLabel();
    cookieNumber->setText(QString::number(cookie));
    cookieNumber->setAlignment(Qt::AlignCenter);
-//   cookieNumber->move(255,50);
-   cookieNumber->resize(750,750);
+
 
    layoutCookie->addWidget(cookieNumber);
 
@@ -77,13 +76,18 @@ MainWindow::MainWindow(QWidget *parent)
 
    //Shop
    const QSize btnSize = QSize(50, 30);
-   //auto*  layoutShop =new QGridLayout();
+   auto*  layoutShop =new QVBoxLayout();
    Shop* shop = new Shop("Cook",25,btnSize,widget);
 
 
-   layout->addWidget(shop);
+   Shop* shop2 = new Shop("Four",50,btnSize,widget);
 
-//   layout->addLayout(layoutShop,0,0);
+   shop->show();
+   layoutShop->addWidget(shop);
+   layoutShop->addWidget(shop2);
+
+   layoutShop->addStretch();
+   layout->addLayout(layoutShop);
 
 
 

@@ -17,7 +17,7 @@ public:
     ~MainWindow();
     QLabel *cookieNumber;
     double cookie=0;
-    double cookiePass=0.5;
+    double cookiePass=0;
 
 
 

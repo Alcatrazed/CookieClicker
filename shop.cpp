@@ -4,22 +4,40 @@
 #include <QLabel>
 #include <QHBoxLayout>
 
-Shop::Shop(QString shopName,double shopPrice,QSize shopBtnSize, QWidget *parent): QWidget(parent)
+Shop::Shop(QString shopName,double shopPrix,QSize shopBtnSize, QWidget *parent): QWidget(parent)
 {
 
-//    auto* layout =new QHBoxLayout;
+    shopPrice=shopPrix;
 
-    QPushButton *shop = new QPushButton("Achat");
-    shop->setFixedSize(shopBtnSize);
+
+    QPushButton *shopBtn = new QPushButton("Achat");
+    shopBtn->setFixedSize(shopBtnSize);
 
     auto* shopLabel = new QLabel();
-    shopLabel->setText(shopName+"  "+QString::number(shopPrice));
+    shopLabel->setText(shopName);
+//    shopLabel->setFixedSize(,8);
 
-    shopLabel->resize(1000,250);
+
+    shopPriceLabel = new QLabel();
+    shopPriceLabel->setText(QString::number(shopPrice)+" cookies");
+//    shopPriceLabel->setFixedSize(3,3);
 
 
-//    layout->addWidget(shop);
-//    layout->addWidget(shopLabel);
+
+
+    auto* layout =new QHBoxLayout(this);
+    layout->addWidget(shopBtn);
+    layout->addWidget(shopLabel);
+    layout->addWidget(shopPriceLabel);
+    layout->addStretch();
+
+    connect(shopBtn,&QAbstractButton::clicked,this,&Shop::BtnClicked);
+}
+
+void Shop::BtnClicked(){
+    shopPrice= shopPrice*1.2;
+    shopPriceLabel->setText(QString::number(shopPrice)+" cookies");
+
 
 }
 
