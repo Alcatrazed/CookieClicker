@@ -85,34 +85,49 @@ MainWindow::MainWindow(QWidget *parent)
 
 
    //Shop
-   const QSize btnSize = QSize(50, 30);
+   const QSize btnSize = QSize(60, 50);
    auto*  layoutShop =new QVBoxLayout();
-   Shop* shop = new Shop("Cook",25,0.2,btnSize,this);
-   connect(shop, &Shop::Achat, this,&MainWindow::Buy );
+   Shop* shop1 = new Shop("Spatulles",25,0.2,btnSize,this);
+   connect(shop1, &Shop::Achat, this,&MainWindow::Buy );
 
-
-   Shop* shop2 = new Shop("Four",50,0.8,btnSize,this);
+   Shop* shop2 = new Shop("Grille Pain",50,0.6,btnSize,this);
    connect(shop2, &Shop::Achat, this,&MainWindow::Buy );
 
+   Shop* shop3 = new Shop("Plaque de cuisson",80,1,btnSize,this);
+   connect(shop3, &Shop::Achat, this,&MainWindow::Buy );
 
-   layoutShop->addWidget(shop);
+   Shop* shop4 = new Shop("Four",110,1.5,btnSize,this);
+   connect(shop4, &Shop::Achat, this,&MainWindow::Buy );
+
+   Shop* shop5 = new Shop("Tapis roulant",150,2,btnSize,this);
+   connect(shop5, &Shop::Achat, this,&MainWindow::Buy );
+
+   Shop* shop6 = new Shop("Usine",200,4,btnSize,this);
+   connect(shop6, &Shop::Achat, this,&MainWindow::Buy );
+
+   Shop* shop7 = new Shop("Multi national",300,6,btnSize,this);
+   connect(shop7, &Shop::Achat, this,&MainWindow::Buy );
+
+   Shop* shop8 = new Shop("Monopole",350,8,btnSize,this);
+   connect(shop8, &Shop::Achat, this,&MainWindow::Buy );
+
+   Shop* shop9 = new Shop("MEGA-FOUR",400,10,btnSize,this);
+   connect(shop9, &Shop::Achat, this,&MainWindow::Buy );
+
+   layoutShop->addWidget(shop1);
    layoutShop->addWidget(shop2);
+   layoutShop->addWidget(shop3);
+   layoutShop->addWidget(shop4);
+   layoutShop->addWidget(shop5);
+   layoutShop->addWidget(shop6);
+   layoutShop->addWidget(shop7);
+   layoutShop->addWidget(shop8);
+   layoutShop->addWidget(shop9);
    layoutShop->addStretch();
 
 
 
    layout->addLayout(layoutShop);
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
@@ -127,10 +142,6 @@ bool MainWindow::Buy(double shopPrice,double boost){
     cookieStats->setText("par seconde: "+QString::number(cookiePass));
     return true;
 }
-
-
-
-
 
 void MainWindow::CookieClicked(){
     cookie+=1;

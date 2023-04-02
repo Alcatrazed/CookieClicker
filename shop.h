@@ -15,10 +15,13 @@ public:
     ~Shop();
     double shopPrice;
     double boost;
+    int cpt=0;
+    QString shopName;
     QLabel* shopPriceLabel;
     QPushButton* shopBtn;
 
     void BtnClicked();
+    void Info();
 
 
 signals:
