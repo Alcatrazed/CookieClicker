@@ -28,15 +28,20 @@ MainWindow::MainWindow(QWidget *parent)
     QString butName = *new QString("cookieClick");
 
     //PARTIE GAUCHE-------------------------------------------------------------------------------------
-    auto* layoutCookie = new QVBoxLayout();
+
 
    //Affichage du nombre de cookie
    cookieNumber = new QLabel();
    cookieNumber->setText(QString::number(cookie));
    cookieNumber->setAlignment(Qt::AlignCenter);
 
+   //Affichage des cookiePass
+   cookieStats = new QLabel();
+   cookieStats->setText("par seconde: "+QString::number(cookiePass));
+   cookieStats->setAlignment(Qt::AlignCenter);
 
-   layoutCookie->addWidget(cookieNumber);
+
+
 
    QFont font = cookieNumber->font();
    font.setBold(true);
@@ -50,13 +55,18 @@ MainWindow::MainWindow(QWidget *parent)
    cookieBut->setPixmap(iconPix);
    cookieBut->resize(750,750);
 //   cookieBut->move(25,100);
+
+
+   auto* layoutCookie = new QVBoxLayout();
+   layoutCookie->addWidget(cookieNumber);
+   layoutCookie->addWidget(cookieStats);
    layoutCookie->addWidget(cookieBut);
    layoutCookie->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Fixed,QSizePolicy::Expanding));
 
 
 
    //Gestion du click sur le cookie
-   connect(cookieBut,&ClickableImage::clicked,this,&MainWindow::cookieClicked);
+   connect(cookieBut,&ClickableImage::clicked,this,&MainWindow::CookieClicked);
 
 
 
@@ -68,7 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
 
    //Gestion des cookies passif (cookiePassif invoqué toutes les secondes)
    QTimer *timer = new QTimer(this);
-   connect(timer, &QTimer::timeout, this,&MainWindow::cookiePassif );
+   connect(timer, &QTimer::timeout, this,&MainWindow::CookiePassif );
    timer->start(1000);
 
 
@@ -77,16 +87,20 @@ MainWindow::MainWindow(QWidget *parent)
    //Shop
    const QSize btnSize = QSize(50, 30);
    auto*  layoutShop =new QVBoxLayout();
-   Shop* shop = new Shop("Cook",25,btnSize,widget);
+   Shop* shop = new Shop("Cook",25,0.2,btnSize,this);
+   connect(shop, &Shop::Achat, this,&MainWindow::Buy );
 
 
-   Shop* shop2 = new Shop("Four",50,btnSize,widget);
+   Shop* shop2 = new Shop("Four",50,0.8,btnSize,this);
+   connect(shop2, &Shop::Achat, this,&MainWindow::Buy );
 
-   shop->show();
+
    layoutShop->addWidget(shop);
    layoutShop->addWidget(shop2);
-
    layoutShop->addStretch();
+
+
+
    layout->addLayout(layoutShop);
 
 
@@ -102,23 +116,34 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
+bool MainWindow::Buy(double shopPrice,double boost){
 
-MainWindow::~MainWindow()
-{
-    delete ui;
+    if(shopPrice>cookie){
+        return false;
+    }
+    cookie-=shopPrice;
+    cookieNumber->setText(QString::number(cookie));
+    cookiePass+=boost;
+    cookieStats->setText("par seconde: "+QString::number(cookiePass));
+    return true;
 }
 
-void MainWindow::cookieClicked(){
+
+
+
+
+void MainWindow::CookieClicked(){
     cookie+=1;
+
     cookieNumber->setText(QString::number(cookie));
 }
 
-void MainWindow::cookiePassif(){
+void MainWindow::CookiePassif(){
     cookie+=cookiePass;
     cookieNumber->setText(QString::number(cookie));
 }
 
-int MainWindow::calculeCookie(){
+int MainWindow::CalculeCookie(){
     //en javascript
    /* const lookup = [
         { value: 1, symbol: "" },
@@ -136,6 +161,10 @@ int MainWindow::calculeCookie(){
       return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
     */
 
+}
 
+MainWindow::~MainWindow()
+{
+    delete ui;
 }
 

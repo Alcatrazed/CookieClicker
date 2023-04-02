@@ -3,24 +3,29 @@
 #include <QWidget>
 #include <QLabel>
 #include <QHBoxLayout>
+#include <QMessageBox>
 
-Shop::Shop(QString shopName,double shopPrix,QSize shopBtnSize, QWidget *parent): QWidget(parent)
+Shop::Shop(QString shopName,double shopPrix,double boost,QSize shopBtnSize, QWidget *parent): QWidget(parent)
 {
 
     shopPrice=shopPrix;
+    this->boost=boost;
 
 
-    QPushButton *shopBtn = new QPushButton("Achat");
+    //bout d'achat
+    shopBtn = new QPushButton("Achat");
     shopBtn->setFixedSize(shopBtnSize);
 
+
+    // label du nom
     auto* shopLabel = new QLabel();
     shopLabel->setText(shopName);
-//    shopLabel->setFixedSize(,8);
 
 
+    //label du prix
     shopPriceLabel = new QLabel();
     shopPriceLabel->setText(QString::number(shopPrice)+" cookies");
-//    shopPriceLabel->setFixedSize(3,3);
+
 
 
 
@@ -35,11 +40,17 @@ Shop::Shop(QString shopName,double shopPrix,QSize shopBtnSize, QWidget *parent):
 }
 
 void Shop::BtnClicked(){
-    shopPrice= shopPrice*1.2;
-    shopPriceLabel->setText(QString::number(shopPrice)+" cookies");
+    if(emit Achat(shopPrice,boost)){
+        shopPrice= shopPrice*1.2;
+        shopPriceLabel->setText(QString::number(shopPrice)+" cookies");
+    }
+    QMessageBox alert;
+    alert.setText("Pas assez de cookies !!");
+    alert.exec();
 
 
 }
+
 
 Shop::~Shop()
 {

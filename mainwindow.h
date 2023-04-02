@@ -16,14 +16,17 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     QLabel *cookieNumber;
+    QLabel *cookieStats;
     double cookie=0;
     double cookiePass=0;
 
 
 
-    void cookieClicked();
-    void cookiePassif();
-    int calculeCookie();
+    void CookieClicked();
+    void CookiePassif();
+    int CalculeCookie();
+    bool Buy(double shopPrice,double boost);
+
 
 
 
