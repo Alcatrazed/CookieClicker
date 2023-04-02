@@ -12,12 +12,14 @@ SOURCES += \
     boost.cpp \
     clickableimage.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    shop.cpp
 
 HEADERS += \
     boost.h \
     clickableimage.h \
-    mainwindow.h
+    mainwindow.h \
+    shop.h
 
 FORMS += \
     mainwindow.ui

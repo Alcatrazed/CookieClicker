@@ -23,6 +23,7 @@ public:
 
     void cookieClicked();
     void cookiePassif();
+    int calculeCookie();
 
 
 

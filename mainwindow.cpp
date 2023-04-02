@@ -7,6 +7,7 @@
 #include <QMouseEvent>
 #include <QTimer>
 #include <QFont>
+#include <shop.h>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -16,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     auto* widget = new QWidget();
-    auto* layout =new QGridLayout();
+    auto* layout =new QHBoxLayout();
     setCentralWidget(widget);
     widget->setLayout(layout);
 
@@ -25,34 +26,42 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     QString butName = *new QString("cookieClick");
-   /* QIcon icon = *new QIcon(iconPix);
-    cookieButton = new QPushButton(icon,butName,parent);*/
-    //  cookieButton = new QPushButton("toto test",parent);
-   //   layout->addWidget(cookieButton);
 
-   //Image clickable du cookie
-   QPixmap iconPix("/home/redha/Bureau/but/s4/c++/qt/CookieClicker/cookieImg.png");
-   iconPix.scaled(50,50);
-   ClickableImage* cookieBut = new ClickableImage(butName,widget);
-   cookieBut->setPixmap(iconPix);
-   cookieBut->resize(750,750);
-   cookieBut->move(25,100);
-
-   //Gestion du click sur le cookie
-   connect(cookieBut,&ClickableImage::clicked,this,&MainWindow::cookieClicked);
+    //PARTIE GAUCHE-------------------------------------------------------------------------------------
+    auto* layoutCookie = new QVBoxLayout();
 
    //Affichage du nombre de cookie
-
-   cookieNumber = new QLabel(widget);
+   cookieNumber = new QLabel();
    cookieNumber->setText(QString::number(cookie));
-   cookieNumber->move(255,50);
-  // cookieNumber->resize(100,500);
+   cookieNumber->setAlignment(Qt::AlignCenter);
+//   cookieNumber->move(255,50);
+   cookieNumber->resize(750,750);
 
+   layoutCookie->addWidget(cookieNumber);
 
    QFont font = cookieNumber->font();
    font.setBold(true);
    font.setPointSize(40);
    cookieNumber->setFont(font);
+
+   //Image clickable du cookie
+   QPixmap iconPix("/home/redha/Bureau/but/s4/c++/qt/CookieClicker/cookieImg.png");
+   iconPix.scaled(50,50);
+   ClickableImage* cookieBut = new ClickableImage(butName);
+   cookieBut->setPixmap(iconPix);
+   cookieBut->resize(750,750);
+//   cookieBut->move(25,100);
+   layoutCookie->addWidget(cookieBut);
+   layoutCookie->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Fixed,QSizePolicy::Expanding));
+
+
+
+   //Gestion du click sur le cookie
+   connect(cookieBut,&ClickableImage::clicked,this,&MainWindow::cookieClicked);
+
+
+
+   layout->addLayout(layoutCookie);
 
 
 
@@ -67,6 +76,15 @@ MainWindow::MainWindow(QWidget *parent)
 
 
    //Shop
+   const QSize btnSize = QSize(50, 30);
+   //auto*  layoutShop =new QGridLayout();
+   Shop* shop = new Shop("Cook",25,btnSize,widget);
+
+
+   layout->addWidget(shop);
+
+//   layout->addLayout(layoutShop,0,0);
+
 
 
 
@@ -87,7 +105,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::cookieClicked(){
-    cookie+=100;
+    cookie+=1;
     cookieNumber->setText(QString::number(cookie));
 }
 
