@@ -21,18 +21,20 @@ Shop::Shop(QString shopName,double shopPrix,double boost,QSize shopBtnSize, QWid
     auto* infoBtn= new QPushButton("Info");
     infoBtn->setFixedSize(shopBtnSize);
 
-    // label du nom
-    auto* shopLabel = new QLabel();
-    shopLabel->setText(shopName);
+//    // label du nom
+//    auto* shopLabel = new QLabel();
+//    shopLabel->setText(shopName);
+//    shopLabel
 
     //label du prix
     shopPriceLabel = new QLabel();
-    shopPriceLabel->setText("prix: "+QString::number(shopPrice)+" cookies");
+    shopPriceLabel->setText("<h2>"+shopName+"<h2/> prix: "+QString::number(shopPrice)+" cookies");
+    shopPriceLabel->setFixedSize(250,65);
 
-    QFont font = shopLabel->font();
-    font.setBold(true);
-    font.setPointSize(24);
-    shopLabel->setFont(font);
+//    QFont font = shopPriceLabel->font();
+//    font.setBold(true);
+//    font.setPointSize(24);
+//    shopLabel->setFont(font);
 //    shopPriceLabel->setFont(font);
 
 
@@ -41,7 +43,7 @@ Shop::Shop(QString shopName,double shopPrix,double boost,QSize shopBtnSize, QWid
 
     auto* layout =new QHBoxLayout(this);
     layout->addWidget(shopBtn);
-    layout->addWidget(shopLabel);
+//    layout->addWidget(shopLabel);
     layout->addWidget(shopPriceLabel);
     layout->addWidget(infoBtn);
     layout->addStretch();
@@ -54,7 +56,7 @@ Shop::Shop(QString shopName,double shopPrix,double boost,QSize shopBtnSize, QWid
 void Shop::BtnClicked(){
     if(emit Achat(shopPrice,boost)){
         shopPrice= shopPrice*1.2;
-        shopPriceLabel->setText("prix: "+QString::number(shopPrice)+" cookies");
+        shopPriceLabel->setText("<h2>"+shopName+"<h2/> prix: "+QString::number(shopPrice)+" cookies");
         cpt+=1;
         return;
     }

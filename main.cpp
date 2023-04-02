@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 
 
     MainWindow w = MainWindow();
-    w.resize(2000,2000);
+//    w.resize(2000,2000);
     w.setWindowTitle("CookieClicker");
     w.show();
 

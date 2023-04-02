@@ -26,6 +26,8 @@ public:
     void CookiePassif();
     int CalculeCookie();
     bool Buy(double shopPrice,double boost);
+    void Save();
+    void Load();
 
 
 

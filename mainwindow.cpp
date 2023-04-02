@@ -114,6 +114,7 @@ MainWindow::MainWindow(QWidget *parent)
    Shop* shop9 = new Shop("MEGA-FOUR",400,10,btnSize,this);
    connect(shop9, &Shop::Achat, this,&MainWindow::Buy );
 
+
    layoutShop->addWidget(shop1);
    layoutShop->addWidget(shop2);
    layoutShop->addWidget(shop3);
